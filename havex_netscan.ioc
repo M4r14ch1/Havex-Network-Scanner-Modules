@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<ioc xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="d7d62321-97ad-489a-a338-8cf0d0229606" last-modified="2015-12-21T23:42:03" xmlns="http://schemas.mandiant.com/2010/ioc">
+  <short_description>Havex_Network_Scan_Module</short_description>
+  <description>This IOC will search for known indicators of a Havex Network Scan module infection. This module looks for hosts listening on known ICS-related ports to identify OPC or ICS systems. If, by chance the malware is present, but has not executed, the port scanning behavior and existence of "tracedscn.yls" won't occur. If this is the case, the following lines may be added in the same "AND" statement under "File name contains tracedscn.yls": 
+"File MD5 contains bddd4e2b84fa2ad61eb065e7797270ff"
+"File Name contains bddd4e2b84fa2ad61eb065e7797270ff.exe"</description>
+  <authored_by>M4r14ch1</authored_by>
+  <authored_date>2015-12-16T01:54:37</authored_date>
+  <links>
+    <link rel="threatgroup">Energetic Bear</link>
+    <link rel="report">https://securelist.com/files/2014/07/EB-YetiJuly2014-Public.pdf</link>
+  </links>
+  <definition>
+    <Indicator operator="OR" id="829f4aee-a0aa-4c3f-98d4-6109cde32cb1">
+      <IndicatorItem id="0e2e46fb-c61e-417a-bdfc-112121b58fe7" condition="is">
+        <Context document="PortItem" search="PortItem/remotePort" type="mir" />
+        <Content type="int">12401</Content>
+      </IndicatorItem>
+      <IndicatorItem id="efb65d57-ac60-46c4-8f2f-5319ba18688b" condition="is">
+        <Context document="PortItem" search="PortItem/remotePort" type="mir" />
+        <Content type="int">502</Content>
+      </IndicatorItem>
+      <IndicatorItem id="8a1e67af-651f-4b7a-ac07-a2510191bce5" condition="is">
+        <Context document="PortItem" search="PortItem/remotePort" type="mir" />
+        <Content type="int">11234</Content>
+      </IndicatorItem>
+      <IndicatorItem id="1e2396bc-7142-4601-bd4f-19bc0e201bdb" condition="is">
+        <Context document="PortItem" search="PortItem/remotePort" type="mir" />
+        <Content type="int">44818</Content>
+      </IndicatorItem>
+      <IndicatorItem id="f97cab0f-bc05-4c19-8229-70e5643c85a0" condition="is">
+        <Context document="PortItem" search="PortItem/remotePort" type="mir" />
+        <Content type="int">102</Content>
+      </IndicatorItem>
+      <Indicator operator="AND" id="9d6f9af5-c8a9-48e5-9204-d5b56b4e5391">
+        <IndicatorItem id="12bcd4e7-44c5-47a6-b36c-df936a3a4dc4" condition="contains">
+          <Context document="FileItem" search="FileItem/FileName" type="mir" />
+          <Content type="string">tracedscn.yls</Content>
+        </IndicatorItem>
+      </Indicator>
+    </Indicator>
+  </definition>
+</ioc>
